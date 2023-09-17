@@ -9,12 +9,25 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public record FarmDto(Long id, String name, @JsonProperty("planted_area") Double plantedArea) {
 
   /**
+   * Creates a FarmDto from a Farm entity.
+   *
+   * @param farm The Farm entity to convert.
+   * @return A FarmDto populated with data from the Farm entity.
+   */
+  public static FarmDto fromEntity(Farm farm) {
+    return new FarmDto(farm.getId(), farm.getName(), farm.getPlantedArea());
+  }
+
+  /**
    * Converts the FarmDto to a Farm entity.
    *
    * @return A Farm entity with the same attributes as this DTO.
    */
-  public Farm toFarm() {
-    return new Farm(id, name, plantedArea, null);
+  public Farm toEntity() {
+    Farm farm = new Farm();
+    farm.setName(name);
+    farm.setPlantedArea(plantedArea);
+    return farm;
   }
 
 }
