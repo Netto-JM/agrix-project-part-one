@@ -3,9 +3,11 @@ package com.betrybe.agrix.controllers;
 import com.betrybe.agrix.controllers.dto.FarmDto;
 import com.betrybe.agrix.models.entities.Farm;
 import com.betrybe.agrix.services.FarmService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,9 +33,20 @@ public class FarmController {
    * @param farmDto The DTO representing the Farm entity to be created.
    * @return A ResponseEntity containing the created Farm DTO and HTTP status code 201 (Created).
    */
-  @PostMapping
+  @PostMapping()
   public ResponseEntity<FarmDto> createFarm(@RequestBody FarmDto farmDto) {
     Farm newFarm = farmService.insertFarm(farmDto.toEntity());
     return ResponseEntity.status(HttpStatus.CREATED).body(FarmDto.fromEntity(newFarm));
+  }
+
+  /**
+   * Retrieves all Farm entities.
+   *
+   * @return A List containing all Farm DTOs.
+   */
+  @GetMapping()
+  public List<FarmDto> getAllFarms() {
+    List<Farm> allFarms = farmService.getAllFarms();
+    return allFarms.stream().map(FarmDto::fromEntity).toList();
   }
 }
