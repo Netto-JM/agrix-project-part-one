@@ -5,6 +5,9 @@ import com.betrybe.agrix.models.repositories.FarmRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * Service class for managing Farm entities.
+ */
 @Service
 public class FarmService {
 
@@ -15,8 +18,13 @@ public class FarmService {
     this.farmRepository = farmRepository;
   }
 
+  /**
+   * Inserts a new Farm entity into the database.
+   *
+   * @param farm The Farm entity to be inserted.
+   * @return The inserted Farm entity.
+   */
   public Farm insertFarm(Farm farm) {
     return farmRepository.save(farm);
   }
-
 }

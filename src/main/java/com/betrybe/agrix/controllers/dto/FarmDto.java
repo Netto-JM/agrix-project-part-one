@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Data Transfer Object (DTO) representing the Farm entity.
  */
-public record FarmDto(Long id, String name, @JsonProperty("planted_area") Double plantedArea) {
+public record FarmDto(Long id, String name, Double size) {
 
   /**
    * Creates a FarmDto from a Farm entity.
@@ -15,7 +15,7 @@ public record FarmDto(Long id, String name, @JsonProperty("planted_area") Double
    * @return A FarmDto populated with data from the Farm entity.
    */
   public static FarmDto fromEntity(Farm farm) {
-    return new FarmDto(farm.getId(), farm.getName(), farm.getPlantedArea());
+    return new FarmDto(farm.getId(), farm.getName(), farm.getSize());
   }
 
   /**
@@ -26,7 +26,7 @@ public record FarmDto(Long id, String name, @JsonProperty("planted_area") Double
   public Farm toEntity() {
     Farm farm = new Farm();
     farm.setName(name);
-    farm.setPlantedArea(plantedArea);
+    farm.setSize(size);
     return farm;
   }
 

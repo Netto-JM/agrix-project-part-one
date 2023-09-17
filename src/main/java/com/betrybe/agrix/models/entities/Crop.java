@@ -1,10 +1,11 @@
 package com.betrybe.agrix.models.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinTable;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
@@ -28,34 +29,36 @@ public class Crop {
   private String name;
 
   /**
-   * The size of the crop.
+   * The planted area of the crop in acres.
    */
-  private Double size;
+  @Column(name = "planted_area")
+  private Double plantedArea;
 
   /**
    * The farm to which this crop belongs.
    */
   @ManyToOne
-  @JoinTable(name = "farm_id")
+  @JoinColumn(name = "farm_id")
   private Farm farm;
 
-  /**
-   * Default constructor for Crop.
-   */
+  // Construtores, getters e setters
+
+  // Construtor vazio
   public Crop() {}
 
+  // Construtor parametrizado
   /**
    * Parameterized constructor for Crop.
    *
-   * @param id   The unique identifier of the crop.
-   * @param name The name of the crop.
-   * @param size The size of the crop.
-   * @param farm The farm to which this crop belongs.
+   * @param id          The unique identifier of the crop.
+   * @param name        The name of the crop.
+   * @param plantedArea The planted area of the crop in acres.
+   * @param farm        The farm to which this crop belongs.
    */
-  public Crop(Long id, String name, Double size, Farm farm) {
+  public Crop(Long id, String name, Double plantedArea, Farm farm) {
     this.id = id;
     this.name = name;
-    this.size = size;
+    this.plantedArea = plantedArea;
     this.farm = farm;
   }
 
@@ -96,21 +99,21 @@ public class Crop {
   }
 
   /**
-   * Get the size of the crop.
+   * Get the planted area of the crop in acres.
    *
-   * @return The size of the crop.
+   * @return The planted area of the crop.
    */
-  public Double getSize() {
-    return size;
+  public Double getPlantedArea() {
+    return plantedArea;
   }
 
   /**
-   * Set the size of the crop.
+   * Set the planted area of the crop in acres.
    *
-   * @param size The size of the crop.
+   * @param plantedArea The planted area of the crop.
    */
-  public void setSize(Double size) {
-    this.size = size;
+  public void setPlantedArea(Double plantedArea) {
+    this.plantedArea = plantedArea;
   }
 
   /**

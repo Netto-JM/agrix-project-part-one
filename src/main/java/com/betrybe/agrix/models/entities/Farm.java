@@ -1,7 +1,7 @@
 package com.betrybe.agrix.models.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -12,6 +12,7 @@ import java.util.List;
 /**
  * Represents a farm entity.
  */
+@Entity
 @Table(name = "farm")
 public class Farm {
 
@@ -19,32 +20,38 @@ public class Farm {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  /**
+   * The name of the farm.
+   */
   private String name;
 
-  @Column(name = "planted_area")
-  private Double plantedArea;
+  /**
+   * The size of the farm in acres.
+   */
+  private Double size;
 
   @OneToMany(mappedBy = "farm")
   @JsonIgnore
   private List<Crop> crops;
 
-  /**
-   * Default constructor for the Farm entity.
-   */
+  // Construtores, getters e setters
+
+  // Construtor vazio
   public Farm() {}
 
+  // Construtor parametrizado
   /**
    * Parameterized constructor for the Farm entity.
    *
-   * @param id          The unique identifier of the farm.
-   * @param name        The name of the farm.
-   * @param plantedArea The total planted area of the farm.
-   * @param crops       The list of crops associated with the farm.
+   * @param id   The unique identifier of the farm.
+   * @param name The name of the farm.
+   * @param size The size of the farm in acres.
+   * @param crops The list of crops associated with the farm.
    */
-  public Farm(Long id, String name, Double plantedArea, List<Crop> crops) {
+  public Farm(Long id, String name, Double size, List<Crop> crops) {
     this.id = id;
     this.name = name;
-    this.plantedArea = plantedArea;
+    this.size = size;
     this.crops = crops;
   }
 
@@ -69,7 +76,7 @@ public class Farm {
   /**
    * Get the name of the farm.
    *
-   * @return The farm's name.
+   * @return The name of the farm.
    */
   public String getName() {
     return name;
@@ -85,21 +92,21 @@ public class Farm {
   }
 
   /**
-   * Get the total planted area of the farm.
+   * Get the size of the farm in acres.
    *
-   * @return The total planted area in acres.
+   * @return The size of the farm.
    */
-  public Double getPlantedArea() {
-    return plantedArea;
+  public Double getSize() {
+    return size;
   }
 
   /**
-   * Set the total planted area of the farm.
+   * Set the size of the farm in acres.
    *
-   * @param plantedArea The total planted area in acres.
+   * @param size The size of the farm.
    */
-  public void setPlantedArea(Double plantedArea) {
-    this.plantedArea = plantedArea;
+  public void setSize(Double size) {
+    this.size = size;
   }
 
   /**
