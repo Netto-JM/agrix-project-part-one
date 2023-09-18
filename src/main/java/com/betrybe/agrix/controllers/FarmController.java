@@ -40,9 +40,9 @@ public class FarmController {
   }
 
   /**
-   * Retrieves all Farm entities.
+   * Retrieves a list of all Farm entities.
    *
-   * @return A List containing all Farm DTOs.
+   * @return A list of FarmDto objects representing all Farm entities.
    */
   @GetMapping()
   public List<FarmDto> getAllFarms() {
