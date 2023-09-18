@@ -3,6 +3,7 @@ package com.betrybe.agrix.services;
 import com.betrybe.agrix.models.entities.Crop;
 import com.betrybe.agrix.models.repositories.CropRepository;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,13 +21,14 @@ public class CropService {
   }
 
   /**
-   * Inserts a new Crop entity into the database.
+   * Retrieves a crop by its unique identifier.
    *
-   * @param crop The Crop entity to be inserted.
-   * @return The inserted Crop entity.
+   * @param id The unique identifier of the crop to retrieve.
+   * @return An Optional containing the retrieved Crop entity,
+   *         or an empty Optional if no crop with the specified ID is found.
    */
-  public Crop insertCrop(Crop crop) {
-    return cropRepository.save(crop);
+  public Optional<Crop> getCropById(Long id) {
+    return cropRepository.findById(id);
   }
 
   /**
