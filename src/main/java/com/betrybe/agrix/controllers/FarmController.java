@@ -1,6 +1,8 @@
 package com.betrybe.agrix.controllers;
 
+import com.betrybe.agrix.controllers.dto.CropDto;
 import com.betrybe.agrix.controllers.dto.FarmDto;
+import com.betrybe.agrix.models.entities.Crop;
 import com.betrybe.agrix.models.entities.Farm;
 import com.betrybe.agrix.services.FarmService;
 import com.betrybe.agrix.services.exception.FarmNotFoundException;
@@ -40,6 +42,25 @@ public class FarmController {
   public ResponseEntity<FarmDto> createFarm(@RequestBody FarmDto farmDto) {
     Farm newFarm = farmService.insertFarm(farmDto.toEntity());
     return ResponseEntity.status(HttpStatus.CREATED).body(FarmDto.fromEntity(newFarm));
+  }
+
+  /**
+   * Creates a new crop associated with a farm.
+   *
+   * @param farmId   The ID of the farm to associate the crop with.
+   * @param cropDto  The CropDto representing the crop to create.
+   * @return A ResponseEntity containing the created CropDto.
+   * @throws FarmNotFoundException If the specified farm with farmId is not found.
+   */
+  @PostMapping("/{farmId}/crops")
+  public ResponseEntity<CropDto> createCrop(@PathVariable Long farmId, @RequestBody CropDto cropDto)
+      throws FarmNotFoundException {
+    Optional<Crop> optionalCrop = farmService.insertCrop(farmId, cropDto.toEntity());
+
+    return optionalCrop.map(newCrop -> {
+      CropDto newCropDto = CropDto.fromEntity(newCrop);
+      return ResponseEntity.status(HttpStatus.CREATED).body(newCropDto);
+    }).orElseThrow(FarmNotFoundException::new);
   }
 
   /**

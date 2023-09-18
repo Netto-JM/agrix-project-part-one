@@ -1,12 +1,11 @@
 package com.betrybe.agrix.controllers.dto;
 
 import com.betrybe.agrix.models.entities.Crop;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Data Transfer Object (DTO) representing the Crop entity.
  */
-public record CropDto(Long id, String name, @JsonProperty("planted_area") Double plantedArea) {
+public record CropDto(Long id, String name, Double plantedArea, Long farmId) {
 
   /**
    * Creates a CropDto from a Crop entity.
@@ -15,7 +14,8 @@ public record CropDto(Long id, String name, @JsonProperty("planted_area") Double
    * @return A CropDto populated with data from the Crop entity.
    */
   public static CropDto fromEntity(Crop crop) {
-    return new CropDto(crop.getId(), crop.getName(), crop.getPlantedArea());
+    Long farmId = crop.getFarm() != null ? crop.getFarm().getId() : null;
+    return new CropDto(crop.getId(), crop.getName(), crop.getPlantedArea(), farmId);
   }
 
   /**
