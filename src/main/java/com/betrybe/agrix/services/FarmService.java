@@ -75,4 +75,15 @@ public class FarmService {
   public List<Farm> getAllFarms() {
     return farmRepository.findAll();
   }
+
+  /**
+   * Retrieves a list of Crop entities associated with a specific farm.
+   *
+   * @param farmId The unique identifier of the farm for which to retrieve crops.
+   * @return A List of Crop entities associated with the specified farm,
+   *         or an empty List if no crops are found for the given farm.
+   */
+  public List<Crop> getCropsByFarmId(Long farmId) {
+    return cropRepository.findByFarmId(farmId);
+  }
 }

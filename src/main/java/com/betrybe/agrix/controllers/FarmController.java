@@ -64,6 +64,25 @@ public class FarmController {
   }
 
   /**
+   * Retrieves a list of CropDto objects representing crops associated with a specific farm.
+   *
+   * @param farmId The unique identifier of the farm for which to retrieve crops.
+   * @return A List of CropDto objects associated with the specified farm,
+   *         or an empty List if no crops are found for the given farm.
+   * @throws FarmNotFoundException If the farm with the specified ID is not found.
+   */
+  @GetMapping("/{farmId}/crops")
+  public List<CropDto> getCropsByFarmId(@PathVariable Long farmId)
+      throws FarmNotFoundException {
+    Optional<Farm> optionalFarm = farmService.getFarmById(farmId);
+    if (optionalFarm.isEmpty()) {
+      throw new FarmNotFoundException();
+    }
+    List<Crop> crops = farmService.getCropsByFarmId(farmId);
+    return crops.stream().map(CropDto::fromEntity).toList();
+  }
+
+  /**
    * Retrieves a farm by its unique identifier.
    *
    * @param farmId The unique identifier of the farm to retrieve.
